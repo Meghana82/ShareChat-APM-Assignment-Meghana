@@ -1,0 +1,233 @@
+[
+  {
+    "event": "वट सावित्री",
+    "english_name": "Vat Savitri Vrat",
+    "aliases": ["वट सावित्री व्रत", "Vat Savitri", "Vat Savitri Vrat", "बड़ सावित्री", "बरगद पूजा"],
+    "regions": ["Uttar Pradesh", "Bihar", "Jharkhand", "Madhya Pradesh", "Rajasthan", "Delhi", "Haryana"],
+    "languages": ["hi", "bhojpuri", "marathi"],
+    "date": "2026-05-16",
+    "approximate_date": "2026-05-16",
+    "end_date": "2026-05-16",
+    "preseed_window_days": 5,
+    "seed_tags": ["#वट_सावित्री", "#वट_सावित्री_व्रत", "#सावित्री_व्रत"],
+    "displayLabel": "🪔 वट सावित्री की शुभकामनाएं 🙏",
+    "category": "festival",
+    "culturalPriority": "high"
+  },
+  {
+    "event": "शनि अमावस्या",
+    "english_name": "Shani Amavasya",
+    "aliases": ["शनि अमावस्या", "Shani Amavasya", "शनिवार अमावस्या", "शनिदेव पूजा"],
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Madhya Pradesh", "Rajasthan", "Delhi"],
+    "languages": ["hi"],
+    "date": "2026-05-16",
+    "approximate_date": "2026-05-16",
+    "end_date": "2026-05-16",
+    "preseed_window_days": 2,
+    "seed_tags": ["#शनि_अमावस्या", "#शनिदेव_पूजा"],
+    "displayLabel": "🪔 शनि अमावस्या पर पूजा-पाठ",
+    "category": "devotional",
+    "culturalPriority": "medium"
+  },
+  {
+    "event": "छठ पूजा",
+    "english_name": "Chhath Puja",
+    "regions": ["Bihar", "Uttar Pradesh", "Jharkhand"],
+    "languages": ["hi", "bhojpuri"],
+    "approximate_date": "2026-11-14",
+    "preseed_window_days": 5,
+    "seed_tags": ["#छठ_पूजा", "#छठ_गीत", "#छठ_व्रत"],
+    "category": "festival"
+  },
+  {
+    "event": "दिवाली",
+    "english_name": "Diwali",
+    "regions": ["India", "Uttar Pradesh", "Rajasthan", "Madhya Pradesh", "Bihar"],
+    "languages": ["hi", "bhojpuri", "rajasthani"],
+    "approximate_date": "2026-11-08",
+    "preseed_window_days": 7,
+    "seed_tags": ["#दिवाली", "#दीपावली", "#दिवाली_की_तैयारी"],
+    "category": "festival"
+  },
+  {
+    "event": "होली",
+    "english_name": "Holi",
+    "regions": ["Uttar Pradesh", "Bihar", "Rajasthan", "Madhya Pradesh"],
+    "languages": ["hi", "bhojpuri"],
+    "approximate_date": "2026-03-04",
+    "preseed_window_days": 7,
+    "seed_tags": ["#होली", "#होली_गीत", "#रंगों_की_होली"],
+    "category": "festival"
+  },
+  {
+    "event": "नवरात्रि",
+    "english_name": "Navratri",
+    "regions": ["Gujarat", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"],
+    "languages": ["hi", "gujarati"],
+    "approximate_date": "2026-10-10",
+    "preseed_window_days": 9,
+    "seed_tags": ["#नवरात्रि", "#माँ_दुर्गा", "#गरबा"],
+    "category": "festival"
+  },
+  {
+    "event": "करवा चौथ",
+    "english_name": "Karwa Chauth",
+    "regions": ["Punjab", "Haryana", "Rajasthan", "Uttar Pradesh", "Delhi NCR"],
+    "languages": ["hi", "punjabi"],
+    "approximate_date": "2026-10-29",
+    "preseed_window_days": 4,
+    "seed_tags": ["#करवा_चौथ", "#करवा_चौथ_व्रत", "#चांद_का_इंतजार"],
+    "category": "festival"
+  },
+  {
+    "event": "सावन सोमवार",
+    "english_name": "Sawan Somwar",
+    "regions": ["Uttar Pradesh", "Bihar", "Madhya Pradesh", "Jharkhand", "Uttarakhand"],
+    "languages": ["hi", "bhojpuri"],
+    "approximate_date": "2026-07-13",
+    "end_date": "2026-08-10",
+    "preseed_window_days": 30,
+    "seed_tags": ["#सावन_सोमवार", "#भोलेनाथ", "#शिव_भक्ति"],
+    "category": "devotional"
+  },
+  {
+    "event": "हनुमान जयंती",
+    "english_name": "Hanuman Jayanti",
+    "regions": ["India", "Uttar Pradesh", "Rajasthan", "Madhya Pradesh"],
+    "languages": ["hi"],
+    "approximate_date": "2026-04-02",
+    "preseed_window_days": 4,
+    "seed_tags": ["#हनुमान_जयंती", "#जय_बजरंगबली", "#हनुमान_चालीसा"],
+    "category": "devotional"
+  },
+  {
+    "event": "गणेश चतुर्थी",
+    "english_name": "Ganesh Chaturthi",
+    "regions": ["Maharashtra", "Madhya Pradesh", "Gujarat", "Karnataka"],
+    "languages": ["hi", "marathi"],
+    "approximate_date": "2026-09-14",
+    "preseed_window_days": 6,
+    "seed_tags": ["#गणेश_चतुर्थी", "#गणपति_बप्पा", "#गणेश_उत्सव"],
+    "category": "festival"
+  },
+  {
+    "event": "रक्षा बंधन",
+    "english_name": "Raksha Bandhan",
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Rajasthan", "Madhya Pradesh"],
+    "languages": ["hi"],
+    "approximate_date": "2026-08-28",
+    "preseed_window_days": 5,
+    "seed_tags": ["#रक्षा_बंधन", "#राखी", "#भाई_बहन"],
+    "category": "festival"
+  },
+  {
+    "event": "जन्माष्टमी",
+    "english_name": "Janmashtami",
+    "regions": ["Uttar Pradesh", "Rajasthan", "Madhya Pradesh", "Gujarat"],
+    "languages": ["hi"],
+    "approximate_date": "2026-09-04",
+    "preseed_window_days": 5,
+    "seed_tags": ["#जन्माष्टमी", "#कृष्ण_जन्माष्टमी", "#राधे_राधे"],
+    "category": "devotional"
+  },
+  {
+    "event": "ईद",
+    "english_name": "Eid",
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Delhi NCR", "Maharashtra"],
+    "languages": ["hi", "urdu"],
+    "approximate_date": "2026-03-20",
+    "preseed_window_days": 5,
+    "seed_tags": ["#ईद", "#ईद_मुबारक", "#ईद_की_तैयारी"],
+    "category": "festival"
+  },
+  {
+    "event": "मुहर्रम",
+    "english_name": "Muharram",
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Telangana"],
+    "languages": ["hi", "urdu"],
+    "approximate_date": "2026-06-26",
+    "preseed_window_days": 3,
+    "seed_tags": ["#मुहर्रम", "#ताजिया", "#या_हुसैन"],
+    "category": "devotional"
+  },
+  {
+    "event": "मकर संक्रांति",
+    "english_name": "Makar Sankranti",
+    "regions": ["Uttar Pradesh", "Bihar", "Rajasthan", "Madhya Pradesh", "Gujarat"],
+    "languages": ["hi"],
+    "approximate_date": "2026-01-14",
+    "preseed_window_days": 5,
+    "seed_tags": ["#मकर_संक्रांति", "#पतंग", "#तिल_गुड़"],
+    "category": "festival"
+  },
+  {
+    "event": "तीज",
+    "english_name": "Teej",
+    "regions": ["Rajasthan", "Uttar Pradesh", "Bihar", "Madhya Pradesh"],
+    "languages": ["hi", "rajasthani", "bhojpuri"],
+    "approximate_date": "2026-08-15",
+    "preseed_window_days": 5,
+    "seed_tags": ["#तीज", "#हरियाली_तीज", "#तीज_व्रत"],
+    "category": "festival"
+  },
+  {
+    "event": "गुरु पूर्णिमा",
+    "english_name": "Guru Purnima",
+    "regions": ["India", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan"],
+    "languages": ["hi"],
+    "approximate_date": "2026-07-29",
+    "preseed_window_days": 4,
+    "seed_tags": ["#गुरु_पूर्णिमा", "#गुरु_वंदना", "#आशीर्वाद"],
+    "category": "devotional"
+  },
+  {
+    "event": "महाशिवरात्रि",
+    "english_name": "Mahashivratri",
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Madhya Pradesh", "Uttarakhand"],
+    "languages": ["hi"],
+    "approximate_date": "2026-02-15",
+    "preseed_window_days": 6,
+    "seed_tags": ["#महाशिवरात्रि", "#भोलेनाथ", "#शिवरात्रि_व्रत"],
+    "category": "devotional"
+  },
+  {
+    "event": "दुर्गा पूजा",
+    "english_name": "Durga Puja",
+    "regions": ["Bengal", "Bihar", "Jharkhand", "Odisha", "Assam"],
+    "languages": ["hi", "bengali"],
+    "approximate_date": "2026-10-18",
+    "preseed_window_days": 7,
+    "seed_tags": ["#दुर्गा_पूजा", "#माँ_दुर्गा", "#पंडाल"],
+    "category": "festival"
+  },
+  {
+    "event": "दशहरा",
+    "english_name": "Dussehra",
+    "regions": ["India", "Uttar Pradesh", "Madhya Pradesh", "Rajasthan", "Bihar"],
+    "languages": ["hi"],
+    "approximate_date": "2026-10-20",
+    "preseed_window_days": 5,
+    "seed_tags": ["#दशहरा", "#विजयादशमी", "#रावण_दहन"],
+    "category": "festival"
+  },
+  {
+    "event": "भाई दूज",
+    "english_name": "Bhai Dooj",
+    "regions": ["Uttar Pradesh", "Bihar", "Rajasthan", "Madhya Pradesh", "Delhi NCR"],
+    "languages": ["hi"],
+    "approximate_date": "2026-11-11",
+    "preseed_window_days": 3,
+    "seed_tags": ["#भाई_दूज", "#भाई_बहन", "#तिलक"],
+    "category": "festival"
+  },
+  {
+    "event": "राम नवमी",
+    "english_name": "Ram Navami",
+    "regions": ["India", "Uttar Pradesh", "Bihar", "Madhya Pradesh"],
+    "languages": ["hi"],
+    "approximate_date": "2026-03-27",
+    "preseed_window_days": 5,
+    "seed_tags": ["#राम_नवमी", "#जय_श्री_राम", "#राम_भक्ति"],
+    "category": "devotional"
+  }
+]

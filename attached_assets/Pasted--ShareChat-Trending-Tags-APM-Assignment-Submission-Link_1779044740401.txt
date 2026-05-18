@@ -1,0 +1,143 @@
+# ShareChat Trending Tags — APM Assignment
+
+## Submission Links
+
+| | |
+|---|---|
+| Hosted Prototype | `[add-your-vercel-url]` |
+| GitHub Repo | `[add-your-github-repo-url]` |
+| Loom Walkthrough | `[add-your-loom-url]` |
+| Recent Screenshot | attach at submission |
+
+---
+
+## Problem & Understood Pain Points
+
+ShareChat's trending feed is curated manually — it doesn't scale, and more importantly it misses cultural timing. A tag relevant at 7 AM (शुभ रविवार) is noise at noon. Three pain points:
+
+- **Stale trends** — manual curation lags real events by hours; breaking news and morning greetings collide on the same feed
+- **Language mismatch** — global trending topics don't land with Hindi-speaking Bharat users; a system tuned for Twitter India is not tuned for ShareChat
+- **No source evidence** — editors can't tell if a tag has real multi-source signal or is noise from a single outlet
+
+---
+
+## How the System Decides What's Trending
+
+### Sources & Logic Behind Each
+
+| Source | Logic |
+|---|---|
+| **Google Trends India RSS** | Strongest available intent signal — if India is searching it, Bharat users want it. Primary substitute for ShareChat's internal search data |
+| **Dainik Bhaskar · Amar Ujala · NDTV Hindi · India TV** | What Hindi-speaking India is reading right now. Four outlets independently covering a topic is a strong virality signal |
+| **Hindustan Times · The Hindu** | Cross-validates Hindi signal against English national press — confirms a story has reach beyond the regional Hindi bubble |
+| **RBI RSS · SACHET/NDMA CAP** | High-trust, low-noise official signals. Finance and public safety break here before social media picks them up |
+| **wttr.in weather · GoodReturns & ET fuel prices** | Daily utility trends (petrol prices, heat waves) that matter to Tier 2/3 users but are absent from standard news RSS |
+| **YouTube Data API v3** | Video demand proxy — trending on YouTube India predicts what ShareChat creators will post next |
+| **Calendarific + `indian-festivals.json`** | Cultural calendar ensures festivals appear before they trend, not after. Timing is everything for devotional content |
+
+### Weights & Why Each Number
+
+```
+Heat Score = (Google demand ×0.25) + (Hindi news ×0.20) + (official source ×0.15)
+           + (video signal ×0.15) + (India-Hindi relevance ×0.15) + (freshness ×0.10)
+           + cross-source boost (+8 / +15 / +22 for 2 / 3 / 4+ sources)
+           + bonuses: daily rhythm (+18), festival today (+22), live cricket (+15), official authority (+12)
+           − safety penalty (−30), spam penalty (−20)   →   clamped 1–100
+```
+
+- **Google demand — 0.25 (highest):** Search intent is the closest external substitute for in-app search velocity. When India searches something, it's an active signal, not a passive one. No other external source comes close.
+- **Hindi news — 0.20:** Direct evidence of what Hindi India is consuming. Weighted below Google because coverage ≠ intent — a story can be published without being sought.
+- **Official + video — 0.15 each:** Paired intentionally. Official sources (RBI, SACHET) provide credibility; video (YouTube) provides engagement evidence. Together they validate a tag has real-world traction.
+- **India-Hindi relevance — 0.15:** Guards against globally trending but locally irrelevant topics. A Silicon Valley story scoring high on Google India must still pass this gate.
+- **Freshness — 0.10 (lowest):** Intentionally lowest. A genuinely important trend — a festival, a major news event — should score high on the other five dimensions even if a few hours old. Penalising freshness too hard would suppress sustained trends.
+- **Cross-source boost:** Acts as the virality multiplier. A tag in 4+ independent sources (+22) is treated as having broad societal reach — the closest proxy for ShareChat's internal post-velocity data.
+
+### Filters
+
+1. **Hard filters** — reject adult content, spam phrases, low-information titles (< 3 chars, all-numeric), and stale signals (sports > 8 h, weather > 24 h, default > 72 h)
+2. **India-Hindi Relevance Gate** — every signal scored on Hindi and India keyword sets; must reach ≥ 70 to proceed
+3. **Post-generation safety check** — after LLM writes metadata, a rule filter rejects publisher names, raw headline fragments, mixed-language malformed tags, and mismatched category-title pairs
+
+---
+
+## Workflow Diagram & Per-Stage Technique
+
+```mermaid
+flowchart TD
+  A[External Sources + Daily Rhythm] --> B[Normalize & Bucket]
+  B --> C[Hard Filters]
+  C --> D[India-Hindi Relevance Gate ≥70]
+  D --> E[Cross-Source Validation]
+  E --> F[Category Validation]
+  F --> G[LLM or Deterministic Clustering]
+  G --> H[Deterministic Heat Scoring]
+  H --> I[Diversity Rerank + Time-Mode Caps]
+  I --> J[LLM Hindi Metadata]
+  J --> K[Post-generation Safety Check]
+  K --> L[Safe Backfill if < 10 tags]
+  L --> M[30-min Cache → API]
+```
+
+| Stage | Model / API / Technique | Why |
+|---|---|---|
+| Fetch | Parallel RSS · JSON · REST APIs | 9 source types in one pass — no sequential blocking |
+| Hard Filters | Rule-based blocklists + staleness thresholds | Deterministic and fully auditable; no LLM cost here |
+| Relevance Gate | Hindi/India keyword scoring ≥ 70 | Enforces Bharat-specific signal before expensive clustering |
+| Clustering | Jaccard similarity ≥ 0.38 + entity overlap; `claude-sonnet` refines if key present | Deterministic handles duplicates reliably; LLM catches edge cases it misses |
+| Heat Scoring | Weighted formula — 6 components + bonuses | LLM **never ranks**; auditable via `?debug=1` |
+| Hindi Metadata | `claude-sonnet` → deterministic fallback | Hindi copy quality; degrades gracefully without the API key |
+| Safety Check | Post-generation rule filter | Validates LLM output — doesn't trust it blindly |
+
+---
+
+## Assumptions Made
+
+Since ShareChat internal data is unavailable, three explicit substitutions:
+
+1. **Cross-source count proxies post/search velocity** — a tag in 3+ independent sources is treated as viral; in production, in-app search and post velocity would be primary
+2. **Daily rhythm calendar proxies creator patterns** — time-of-day signals (morning devotional, midday news) stand in for ShareChat's hourly tag-tap and creator activity data
+3. **30-min cache matches real refresh cadence** — validated by observing ShareChat's live feed directly: only 2 of 4 tags changed in a 30-minute window
+
+---
+
+## UX Rationale
+
+**Why I designed trending tags this way**
+
+One user in mind: a Hindi-speaking person in a Tier 2/3 city, opening ShareChat 5–8 times a day, scanning fast, sharing to WhatsApp. Every choice flows from that.
+
+**What I optimised for:**
+
+- **Familiarity over novelty** — a 3-column grid is the same pattern users tap on PhonePe, Paytm, and Meesho every day. Zero learning curve = zero drop-off. The spotlight strip at the top answers "what's the single biggest thing right now" in one glance.
+- **Equal attention across all 10 tags** — carousels bury positions 4–10. A grid distributes eye movement left-right, top-bottom across the full frame, so every ranked tag gets a real chance — and the ranking system gets learning signal from all positions, not just the top 3.
+- **Bharat-native detail page** — detail sheet leads with a visual, then an AI Hindi summary, then a **voice playback button**. Voice isn't an accessibility add-on; it's the primary mode for Tier 2/3 users with variable reading literacy.
+- **Trust before sharing** — WhatsApp share button shows a preview (hook + summary + back-link) before sending. Bharat users are cautious about what enters family groups; the preview removes hesitation.
+
+**What I considered and rejected:**
+
+| Option | Rejected because |
+|---|---|
+| Default vertical hashtag list | No context; no reason to tap — what ShareChat already does today |
+| Horizontal story circles | Hides positions 4–10; auto-advances into full-screen the user didn't ask for |
+| Bento grid (varied tile sizes) | Visual puzzle to decode; reads as metro/designer-first, not Bharat-native |
+| Numerical heat scores (92/100) | Data artefact, not a user signal; replaced with 🔥 on top 3 — same meaning, instantly understood |
+| Full-screen Reels-style | Trending is a discovery route into the feed, not a consumption destination |
+
+---
+
+## 4-Week Roadmap
+
+| Week | Initiative | Why |
+|---|---|---|
+| **W1–2** | **ShareChat internal signals** — in-app search, post velocity, tag taps, watch time, creator velocity, content inventory | External sources are a stand-in; internal data makes the ranker trustworthy and self-improving |
+| **W2–3** | **Personalisation** — language surface, state/city trends, interest graph from past taps, time-of-day pattern per user | Relevance per user beats relevance per nation; highest-leverage improvement after internal signals |
+| **W3–4** | **Editorial & Trust tools** — suppress/boost/merge controls, sensitive-trend review queue with SLA, category circuit breakers | Required before scaling; editorial override layer for breaking or communally sensitive news |
+| **Ongoing** | **A/B experimentation** — heat-score weights, cache cadence, layout variants | Measure CTR equity across all 10 tag positions, not just position 1 |
+
+---
+
+## Claude & Codex Usage
+
+- **Claude (`claude-sonnet`)** — signal clustering refinement and Hindi metadata generation. Chosen because it handles Devanagari fluently and the system degrades gracefully to deterministic fallback when no API key is present.
+- **Claude Code** — end-to-end development: Next.js app, pipeline architecture, scoring logic, and this write-up.
+- Ranking is fully deterministic. Claude touches only clustering edge cases and Hindi copy — never the heat score or final tag order.

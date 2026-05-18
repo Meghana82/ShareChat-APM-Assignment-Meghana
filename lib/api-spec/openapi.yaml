@@ -1,0 +1,224 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: trends
+    description: Trending tags operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /trends:
+    get:
+      operationId: getTrends
+      tags: [trends]
+      summary: Get trending tags
+      description: Returns the current trending tags pipeline output for India/Hindi
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 10
+            maximum: 20
+            default: 10
+        - name: forceRefresh
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: debug
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        "200":
+          description: Trending tags response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrendsApiResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    TrendSignalSummary:
+      type: object
+      properties:
+        externalValidationScore:
+          type: number
+        crossSourceCount:
+          type: integer
+        freshnessScore:
+          type: number
+        reliabilityScore:
+          type: number
+        regionalRelevanceScore:
+          type: number
+
+    TrendSafety:
+      type: object
+      properties:
+        status:
+          type: string
+        reasons:
+          type: array
+          items:
+            type: string
+
+    TrendSampleContent:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [summary]
+        text:
+          type: string
+      required:
+        - type
+        - text
+
+    Trend:
+      type: object
+      properties:
+        rank:
+          type: integer
+        tag:
+          type: string
+        title:
+          type: string
+        displayLabel:
+          type: string
+        description:
+          type: string
+        category:
+          type: string
+        heatScore:
+          type: number
+        bharatRelevanceScore:
+          type: number
+        sources:
+          type: array
+          items:
+            type: string
+        sourceTypes:
+          type: array
+          items:
+            type: string
+        trendStage:
+          type: string
+        whyTrending:
+          type: string
+        sampleContent:
+          $ref: "#/components/schemas/TrendSampleContent"
+        safety:
+          $ref: "#/components/schemas/TrendSafety"
+        signalSummary:
+          $ref: "#/components/schemas/TrendSignalSummary"
+        isTopSurfaceCandidate:
+          type: boolean
+        surfaceSlot:
+          type: integer
+          nullable: true
+        surfaceReason:
+          type: string
+          nullable: true
+      required:
+        - rank
+        - tag
+        - title
+        - displayLabel
+        - description
+        - category
+        - heatScore
+        - bharatRelevanceScore
+        - sources
+        - trendStage
+        - whyTrending
+        - sampleContent
+
+    TrendsCache:
+      type: object
+      properties:
+        status:
+          type: string
+        cacheWindowMinutes:
+          type: integer
+      required:
+        - status
+        - cacheWindowMinutes
+
+    TrendsTimeMode:
+      type: object
+      properties:
+        mode:
+          type: string
+        istHour:
+          type: integer
+        reason:
+          type: string
+      required:
+        - mode
+        - istHour
+        - reason
+
+    TrendsMeta:
+      type: object
+      properties:
+        returnedCount:
+          type: integer
+        rawSignalCount:
+          type: integer
+        filteredSignalCount:
+          type: integer
+        timeMode:
+          $ref: "#/components/schemas/TrendsTimeMode"
+      required:
+        - returnedCount
+
+    TrendsApiResponse:
+      type: object
+      properties:
+        generatedAt:
+          type: string
+        cache:
+          $ref: "#/components/schemas/TrendsCache"
+        meta:
+          $ref: "#/components/schemas/TrendsMeta"
+        trends:
+          type: array
+          items:
+            $ref: "#/components/schemas/Trend"
+      required:
+        - generatedAt
+        - cache
+        - meta
+        - trends

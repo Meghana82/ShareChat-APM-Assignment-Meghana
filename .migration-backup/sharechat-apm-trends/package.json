@@ -1,0 +1,33 @@
+{
+  "name": "sharechat-apm-trends",
+  "version": "1.0.0",
+  "description": "ShareChat APM: Hindi-first automated trending tags system and clickable mobile prototype",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.96.0",
+    "date-fns": "^4.1.0",
+    "fast-xml-parser": "^5.8.0",
+    "next": "^15.5.18",
+    "p-limit": "^6.2.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.3",
+    "vitest": "^2.1.9"
+  }
+}
