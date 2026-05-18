@@ -10,8 +10,7 @@ A Hindi-first automated trending tags system and clickable mobile prototype for 
 | Mobile App (QR scan) | https://sharechat-app-backend.replit.app/mobile/ |
 | API Endpoint | https://sharechat-app-backend.replit.app/api/trends |
 | GitHub Repo | https://github.com/Meghana82/ShareChat-APM-Assignment-Meghana.git |
-| Loom Walkthrough | `[add-your-loom-url]` |
-| Recent Screenshot | attach at submission |
+
 
 ---
 
